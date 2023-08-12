@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static',filename='dist/css/output.css')}}"
+    />
+    <title>{% block title %}Home{% endblock %}</title>
+  </head>
+
+  <body>
+    {% include 'navbar.html' %}
+
+    <section class="bg-white dark:bg-gray-900">
+      <div class="max-w-screen-xl px-4 py-2 mx-auto lg:py-4">
+        {% block content %} {% endblock %}
+      </div>
+    </section>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.0/flowbite.min.js"></script>
+    <script
+      type="text/javascript"
+      src="{{ url_for('static', filename='index.js') }}"
+    ></script>
+  </body>
+</html>
