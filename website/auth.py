@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, flash, redirect, url_for
 from .my_helpers import is_valid_email
 from .models import User
 from .database import db
-from flask_login import login_user, current_user
+from flask_login import login_user, current_user, logout_user
 import bcrypt
 
 
@@ -11,6 +11,8 @@ auth = Blueprint('auth', __name__)
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('views.home'))
     if request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('password')
@@ -30,10 +32,13 @@ def login():
 
 @auth.route('/logout')
 def logout():
-    return "<p>logout</p>"
+    logout_user()
+    return redirect(url_for('auth.login'))
 
 @auth.route('/register', methods=['GET', 'POST'])
 def register():
+    if current_user.is_authenticated:
+         return redirect(url_for('views.home'))
     if request.method == 'POST':
         email = request.form.get('email')
         first_name = request.form.get('firstName')
@@ -60,4 +65,4 @@ def register():
             flash('Account created!', category='success')
             return redirect(url_for('views.home'))
 
-    return render_template("register.html")
+    return render_template("register.html", user=current_user)
