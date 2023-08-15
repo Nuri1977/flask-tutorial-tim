@@ -53,3 +53,4 @@ venv
 app/static/images/profiles
 myenv
 instance
+.env

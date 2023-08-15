@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, url_for, redirect, request, flash
 from flask_login import login_required, current_user
 from .models import Note
-from .database import db
+from .extensions import db
 from flask_login import current_user
 
 views = Blueprint('views', __name__)

@@ -1,9 +1,9 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from .my_helpers import is_valid_email
 from .models import User
-from .database import db
+from .extensions import db
 from flask_login import login_user, current_user, logout_user
-import bcrypt
+from werkzeug.security import generate_password_hash, check_password_hash
 
 
 
@@ -18,8 +18,9 @@ def login():
         password = request.form.get('password')
 
         user = User.query.filter_by(email=email).first()
+        print(type(user.password))
         if user:
-            if bcrypt.checkpw(password.encode('utf-8'), user.password):
+            if check_password_hash(user.password, password):
                 flash('Logged in successfully!', category='success')
                 login_user(user, remember=True)
                 return redirect(url_for('views.home'))
@@ -57,7 +58,7 @@ def register():
         elif len(password) < 7:
             flash('Password must be at least 7 characters.', category='error')
         else:
-            hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+            hashed_password = generate_password_hash(password, method='sha256')
             new_user = User(email=email, first_name=first_name, password=hashed_password)
             db.session.add(new_user)
             db.session.commit()

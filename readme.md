@@ -28,7 +28,26 @@ Load CSS
 
 `npm run tailwind`
 
-Run the app
+### Modify env
 
-`python main.py`
+Update the `.env` file to match your db url. ex:\
+`DATABASE_URL=postgresql://postgres:123456@localhost:5432/database_name`
+
+### Initialize db
+
+Run the following commands to initliaze database
+
+```
+flask db init
+flask db migrate
+flask db upgrade
+```
+
+## Run
+
+To run the appliaction first setup the `FLASK_APP=app.py` env then trigger `flask run`
+
+```
+export FLASK_APP=app.py
+flask run
 ```
