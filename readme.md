@@ -28,11 +28,7 @@ Load CSS
 
 `npm run tailwind`
 
-```
+Run the app
 
-## Run
-
-
-```
-python main.py
+`python main.py`
 ```
