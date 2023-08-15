@@ -1,6 +1,50 @@
 {% extends "layout.html" %}
 {% block title %}Notes{% endblock%}
 {% block content %}
-<h1>Notes</h1>
+
+
+<section class="max-w-2xl m-auto ">
+  <h3 class="text-3xl text-center font-bold dark:text-white mb-4">Notes</h3>
+
+  <div class="relative overflow-x-auto rounded-lg border border-gray-300 mb-3">
+    <table class="w-full text-sm text-left  text-gray-500 dark:text-gray-400">
+      <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <tr>
+          <th scope="col" class="px-6 py-3">
+            Note
+          </th>
+          <th scope="col" class="px-6 py-3">
+            Actions
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for note in user.notes %}
+        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+          <td class="px-6 py-3">
+            {{ note.data }}
+          </td>
+          <td class="px-6 py-3">
+            Edit Delete
+          </td>
+        </tr>
+
+        {% endfor %}
+
+      </tbody>
+    </table>
+  </div>
+
+  <form method="post">
+    <textarea id="data" name="data" rows="4"
+      class="block p-2.5 mb-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+      placeholder="Write your note here..."></textarea>
+
+    <button type="submit"
+      class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add
+      Note</button>
+  </form>
+</section>
+
 
 {% endblock %}
